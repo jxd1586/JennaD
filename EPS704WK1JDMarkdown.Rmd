@@ -1,0 +1,31 @@
+---
+title: 'EPS 704 Week 1: Data Import and Entry'
+author: "Jenna Doerr"
+date: "`9.3.2026`"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)   
+```
+
+```{r import-csv}
+library(readr)                          
+enroll <- read_csv("enrollment.csv")    
+head(enroll)                            
+dim(enroll)                             
+```
+
+The enrollment file loaded with `r nrow(enroll)` rows and `r ncol(enroll)` columns.
+
+```{r import-excel}
+library(readxl)                         
+demo <- read_excel("institutional.xlsx", sheet = "Demographics") 
+head(demo)                              
+dim(demo)                             
+```
+
+The Demographics sheet loaded with `r nrow(demo)` rows and `r ncol(demo)` columns.

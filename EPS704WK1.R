@@ -1,0 +1,8 @@
+library(readr)
+enroll <- read_csv("enrollment.csv")
+head(enroll)
+dim(enroll)
+library(readxl) 
+demo <- read_excel("institutional.xlsx", sheet = "Demographics")
+head(demo)                              
+dim(demo) 
