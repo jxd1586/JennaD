@@ -1,4 +1,10 @@
 ---
+output:
+  pdf_document: default
+  html_document: default
+---
+https://github.com/jxd1586/JennaD
+---
 author: "Jenna Doerr"
 date: "2026-09-06"
 output: pdf_document
