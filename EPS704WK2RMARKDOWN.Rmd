@@ -1,0 +1,27 @@
+---
+author: "Jenna Doerr"
+date: "2026-09-06"
+output: pdf_document
+title: 'EPS 704 Week 2: Data Cleaning and Filtering'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r clean}
+library(readr); library(dplyr); library(stringr)
+messy <- read_csv("messy.csv")
+
+clean <- messy |>
+  mutate(program = str_trim(program)) |>
+  mutate(gpa = na_if(gpa, "999")) |>
+  distinct(student_id, .keep_all = TRUE)
+colSums(is.na(clean))
+```
+
+```{r filter}
+active <- clean |> filter(enrolled_status == "Active")
+nrow(messy)
+nrow(active) 
+```
