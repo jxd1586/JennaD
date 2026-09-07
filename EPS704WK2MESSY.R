@@ -1,4 +1,3 @@
-library(tidyverse)
 library(readr)
 library(dplyr)
 library(stringr)
@@ -15,3 +14,6 @@ colSums(is.na(clean))
 enroll <- read_csv("enrollment.csv")
 enroll$enrolled_on <- as.Date(enroll$enrolled_on)
 class(enroll$enrolled_on)
+active <- clean |>
+  filter(enrolled_status == "Active")
+dim(active)
