@@ -1,0 +1,37 @@
+---
+title: "EPS704WK3RMarkdown"
+author: "Jenna Doerr"
+date: "2026-09-17"
+output:
+  html_document:
+    df_print: paged
+---
+https://github.com/jxd1586/JennaD
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r transform}
+library(readr); library(dplyr); library(tidyr)
+enroll <- read_csv("enrollment.csv")
+
+enroll <- enroll |>
+  mutate(gpa = na_if(gpa, 999)) |>
+  mutate(gpa_group = case_when(gpa >= 3.5 ~ "High", gpa >= 3.0 ~ "Middle", TRUE ~ "Low"))
+
+enroll |> group_by(program) |>
+  summarise(across(c(gpa, credits), mean, na.rm = TRUE))   
+```
+
+```{r reshape-join}
+scores <- read_csv("scores_wide.csv")
+long <- pivot_longer(scores, c(midterm, final, project),
+                     names_to = "score_type", values_to = "score")
+wide <- pivot_wider(long, names_from = score_type, values_from = score)
+
+advisors <- read_csv("advisors.csv")
+joined <- left_join(enroll, advisors, by = "advisor_id")
+head(joined)
+```
