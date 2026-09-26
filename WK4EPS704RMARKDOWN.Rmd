@@ -1,0 +1,34 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+https://github.com/jxd1586/JennaD/tree/main
+---
+title: 'EPS 704 Week 4: Descriptive Statistics'
+author: "Jenna Doerr"
+date: "2026-09-26"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r transform}
+library(readr); library(dplyr); library(tidyr)
+enroll <- read_csv("enrollment.csv")
+
+enroll <- enroll |>
+  mutate(gpa = na_if(gpa, 999))
+```
+
+```{r describe}
+summary(enroll$gpa) 
+table(enroll$program, enroll$degree_level)
+cor(enroll[c("gpa","credits","gre_q","gre_v")], use = "complete.obs")
+```
+
+
