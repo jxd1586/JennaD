@@ -1,0 +1,43 @@
+---
+title: 'EPS 704 Week 5: Exploratory Analysis and Statistics'
+author: "Jenna Doerr"
+date: "2026-10-03"
+output:
+  html_document:
+    df_print: paged
+    
+  pdf_document: default
+---
+https://github.com/jxd1586/JennaD
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r transform}
+library(readr); library(dplyr); library(tidyr)
+enroll <- read_csv("enrollment.csv")
+
+enroll <- enroll |>
+  mutate(gpa = na_if(gpa, 999))
+```
+
+```{r tests}
+library(readr)
+enroll <- read_csv("enrollment.csv")
+
+cor.test(enroll$gpa, enroll$credits)
+## The result shows a weak negative relationship with gpa and credits and the p value is not statistically significant.
+t.test(gpa ~ graduated, data = enroll)
+## The t-test p value is not statistically significant.
+summary(aov(gpa ~ program, data = enroll))
+## The F value and the p value show there is no statistical significance between the relationship of gpa and the multiple programs.
+chisq.test(table(enroll$degree_level, enroll$graduated))
+## The p value again shows no relationship between degree level and graduated.
+summary(lm(gpa ~ credits, data = enroll))
+## The p value shows no statistical significance between credits and gpa.
+pp <- read_csv("pre_post_scores.csv")
+t.test(pp$post, pp$pre, paired = TRUE)
+## The p value is extremely small and shows a significant statistical difference between the pre and post scores.
+```
