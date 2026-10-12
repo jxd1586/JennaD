@@ -1,0 +1,46 @@
+---
+title: 'EPS 704 Week 6: Integrated Report with R Markdown'
+author: "Jenna Doerr"
+date: "2026-10-11"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+https://github.com/jxd1586/JennaD
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Goal
+
+A small end to end report: import, one summary, one plot, and a short conclusion.
+
+## Import and summary
+
+```{r transform}
+library(readr); library(dplyr); library(tidyr)
+enroll <- read_csv("enrollment.csv")
+
+enroll <- enroll |>
+  mutate(gpa = na_if(gpa, 999))
+```
+
+```{r import}
+library(readr); library(ggplot2)
+mean(enroll$gpa, na.rm = TRUE)
+```
+
+The data has `r nrow(enroll)` students. The average gpa is `r round(mean(enroll$gpa, na.rm = TRUE), 2)`.
+
+## One plot
+
+```{r plot, fig.cap="Distribution of GPA", fig.width=6, fig.height=4}
+ggplot(enroll, aes(x = gpa)) +
+  geom_histogram(binwidth = 0.1) +
+  labs(x = "GPA", y = "Number of students")
+```
+
+## Conclusion
+
+In conclusion, the histogram shows that the highest amount of students are achieving a 3.5 GPA. The histogram is skewed to the left. There is a presence of low value outliers, causing a tail to the left, towards the lower values.
